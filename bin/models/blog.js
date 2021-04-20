@@ -26,10 +26,6 @@ const blogSchema = {
             return this.setDataValue('images', JSON.stringify(val));
         }
   },
-  Status: {
-    type: Sequelize.BOOLEAN,
-    defaultValue:0,
-  },
   createdAt: {
     type: Sequelize.STRING(256),
     defaultValue: moment.tz(Date.now(), "Asia/Kolkata").toString(),

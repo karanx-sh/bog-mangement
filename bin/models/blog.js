@@ -12,7 +12,7 @@ const blogSchema = {
     type: Sequelize.STRING(256),
   },
   description: {
-    type: Sequelize.STRING(256),
+    type: Sequelize.STRING(2048),
   },
   author: {
     type: Sequelize.STRING(256),
@@ -28,7 +28,7 @@ const blogSchema = {
   },
   createdAt: {
     type: Sequelize.STRING(256),
-    defaultValue: moment.tz(Date.now(), "Asia/Kolkata").toString(),
+    defaultValue: moment.tz(Date.now(), "Asia/Kolkata").format("DD/MM/YYYY"),
   },
 };
 

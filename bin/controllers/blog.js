@@ -97,3 +97,67 @@ exports.getBlogs = async(req,res) =>{
     }
 }
 
+
+// remove blog and blog images
+
+exports.remove = async(req,res) =>{
+    try {
+        if(!req.body.id) throw customError.dataInvalid;
+        let blog = await Blog.findByPk(req.body.id);
+    fs.unlinkSync(path.join(`uploads/blog/`+blog.images[0].url));
+        await blog.destroy();
+        return res.status(200).json({
+            error:false,
+            details:{
+                message:"Blog Deleted successfully"
+            }
+        })
+        
+    } catch (error) {
+        console.log(`***** ERROR : ${req.originalUrl} ${error}`);
+    return res.status(error.code||500).json({
+      error: true,
+      details: error,
+    });
+    }
+
+}
+
+
+
+// remove all images and blogs 
+
+exports.removeAll = async(req,res)=>{
+    try {
+        let blog = await Blog.findAll();
+        blog.map(async(b)=>{
+            await b.destroy();
+            fs.unlinkSync(path.join(`uploads/blog/`+b.images[0].url));
+        });
+
+
+        
+fs.readdir(directory='uploads/blog/', (err, files) => {
+    if (err) throw err;
+  
+    for (const file of files) {
+      fs.unlink(path.join(directory, file), err => {
+        if (err) throw err;
+      });
+    }
+  });
+        return res.status(200).json({
+            error:false,
+            details:{
+                message:"All Blogs Deleted successfully"
+            }
+        })
+        
+    } catch (error) {
+        console.log(`***** ERROR : ${req.originalUrl} ${error}`);
+    return res.status(error.code||500).json({
+      error: true,
+      details: error,
+    });
+    }
+}

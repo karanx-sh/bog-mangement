@@ -9,6 +9,11 @@ router.post("/AddBlog",blogController.uploadImage.single('img'),blogController.r
 // To get all blogs
 router.get("/getAllBlogs",blogController.getBlogs);
 
+// To remove the blog
+router.post("/delete",blogController.remove);
+
+// To remove all the blogs
+router.get("/deleteAll",blogController.removeAll);
 
 
 // manage blogs page

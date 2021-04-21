@@ -9,10 +9,10 @@ const blogSchema = {
     primaryKey: true,
   },
   title: {
-    type: Sequelize.STRING(256),
+    type: Sequelize.STRING(2048),
   },
   description: {
-    type: Sequelize.STRING(2048),
+    type: Sequelize.STRING(5048),
   },
   author: {
     type: Sequelize.STRING(256),

@@ -4,19 +4,20 @@ const uniqid = require('uniqid');
 const multer = require('multer');
 const sharp = require('sharp');
 const Blog = require("../models/blog");
-const CustomError = require('../custom/error');
-const customError = require("../custom/errors");
+const CustomError = require('../custom/error'); // Importing Custome Error class
+const customError = require("../custom/errors"); // Importing Developer Defined Custom Errors
 
 
 const imageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join('./uploads'));
+        cb(null, path.join('./uploads')); // save the initial images in uploads folder 
     },
     filename: function (req, file, cb) {
-        cb(null, `${uniqid()}${file.originalname}`);
+        cb(null, `${uniqid()}${file.originalname}`); // rename the image with a unique ID + file name 
     }
 });
 
+// check the file format before saving....
 const multerFilter = (req, file, cb) => {
     if (file.mimetype.startsWith("image")) {
         cb(null, true);
@@ -49,6 +50,7 @@ exports.resizeImages = async (req, res, next) => {
     }
 };
 
+// addBlog controller add the blog details to the database
 exports.addBlog = async(req,res) =>{
     try {
         if(!req.body.title || !req.body.description || !req.body.author) throw customError.dataInvalid;
@@ -74,7 +76,7 @@ exports.addBlog = async(req,res) =>{
     }
 }
 
-
+// get all blogs.
 exports.getBlogs = async(req,res) =>{
     try {
         let blog = await Blog.findAll();

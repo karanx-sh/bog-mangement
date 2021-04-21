@@ -2,9 +2,8 @@ require("dotenv/config");
 const express = require("express");
 const app = express();
 const moment = require("moment-timezone");
-
 const morgan = require("morgan");
-
+const path = require("path");
 const db = require("./connection");
 const CustomError = require("./bin/custom/error");
 
@@ -72,8 +71,9 @@ app.use(express.json());
 app.use(require("body-parser").json());
 app.use(require("body-parser").urlencoded({ extended: true, limit: "100mb" }));
 app.use(require("body-parser").json({ limit: "100mb" }));
-
-
+app.set('view engine', 'ejs'); // setting view engine to ejs 
+app.use('/images',express.static(path.join(__dirname,'uploads/blog'))); // serving Blog images
+app.use(express.static('public')); // serving static files
 
 //******* IMPORTING THE ROUTES *******\\
 const blogRoutes = require("./bin/routes/blog");

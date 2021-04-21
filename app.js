@@ -83,6 +83,10 @@ const blogRoutes = require("./bin/routes/blog");
 app.use("/blog", blogRoutes);
 
 
+app.use("/",(req,res)=>{
+ res.redirect('/blog/manage')
+});
+
 //******* ERROR HANDLING *******\\
 app.use((req, res, next) => {
   const error = new CustomError(

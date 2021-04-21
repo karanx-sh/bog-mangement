@@ -72,8 +72,8 @@
         <a type="button" class="nav-link" data-toggle="modal" data-target="#addNewBlog">
            Add New Blog
         </a>
-        <!-- <a class="nav-link" href="#">Features</a>
-        <a class="nav-link" href="#">Contact</a> -->
+        <a class="nav-link" onclick="DeleteAll()">Delete All Blogs</a>
+        <!-- <a class="nav-link" href="#">Contact</a> -->
       </nav>
     </div>
   </header>
@@ -237,6 +237,33 @@ async function removeBlog(id){
         await axios.post(`${api}/blog/delete`,{
             "id":id
         }).then(async(res) => {  
+        getBlogs();        
+        Swal.fire(
+        'Good job!',
+        'Blog Deleted Successfully',
+        'success'
+        )
+         
+      }).catch((err)=>{
+        throw err
+      })
+
+
+
+    } catch (error) {
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error,
+        })
+    } 
+}
+
+async function DeleteAll(){
+    try {
+
+  
+        await axios.get(`${api}/blog/deleteAll`).then(async(res) => {  
         getBlogs();        
         Swal.fire(
         'Good job!',

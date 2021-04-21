@@ -132,20 +132,20 @@ exports.removeAll = async(req,res)=>{
         let blog = await Blog.findAll();
         blog.map(async(b)=>{
             await b.destroy();
-            fs.unlinkSync(path.join(`uploads/blog/`+b.images[0].url));
+            // fs.unlinkSync(path.join(`uploads/blog/`+b.images[0].url));
         });
 
 
         
-fs.readdir(directory='uploads/blog/', (err, files) => {
-    if (err) throw err;
+// fs.readdir(directory='uploads/blog/', (err, files) => {
+//     if (err) throw err;
   
-    for (const file of files) {
-      fs.unlink(path.join(directory, file), err => {
-        if (err) throw err;
-      });
-    }
-  });
+//     for (const file of files) {
+//       fs.unlink(path.join(directory, file), err => {
+//         if (err) throw err;
+//       });
+//     }
+//   });
         return res.status(200).json({
             error:false,
             details:{
